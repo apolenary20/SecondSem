@@ -13,6 +13,14 @@ price["Mushroom"] = 100
 price["Parsley"] = 10
 print(price)
 a = input()
+val=0
+d = price.get(a,val)
+print(price.get(a))
+while d == 0:
+    print("Такого продукта не существует, попробуйте еще раз")
+    a = input()
+    d = 1
+    d = price.get(a, val)
 print("Сколько кг ")
 kg = int(input())
 print(kg*price[a])
