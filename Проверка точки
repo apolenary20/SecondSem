@@ -1,0 +1,32 @@
+import telegram
+import config
+TOKEN = config.token
+bot = telegram.Bot(TOKEN)
+
+
+
+def get_last_update_id(updates):
+    """Возвращает ID последнего апдейта"""
+    id_list = list()  # пустой список ID апдейтов
+    for update in updates:  # для каждого апдейта
+        id_list.append(update["update_id"])  # заносим в список его ID
+    return (max(id_list))  # возвращаем последний
+
+def get_coor(st):
+    coord = st.split()
+    k = int(coord[0])
+    b = int(coord[1])
+    x = int(coord[2])
+    y = int(coord[3])
+    if (k*x+b) == y:
+        return "точка есть на прямой"
+    else:
+        return "фууу"
+
+last_update_id = None
+updates = bot.getUpdates(last_update_id, timeout=100)
+update1 = bot.getUpdates()[3]
+message1 = update1['message']
+print(message1['text'])
+chat_id = message1['chat']['id']
+bot.sendMessage(chat_id, get_coor(message1['text']))
